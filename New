@@ -1,0 +1,192 @@
+public class Main {
+
+  public static void main(String[] args) {
+    Person person = new Person("David Smith", "1133 APlace Blvd.", "615-111-2222","psmith@someplace.com");
+    Student student = new Student("Carol Butler", "15443 Fremont", "615-222-3333", "susanb@someschool.edu", 1);
+    Employee employee = new Employee("Liza Tigre", "2234 B S. Wayside", "731-888-6644", "tt@someschool.edu", "101 Building A", 45000, "Sept. 12, 2011");
+    Faculty faculty = new Faculty("Maria Mendoza", "8756 Academic Way", "615-777-5231", "emendoza.prof@someschool.edu", "132C Building D", 55000, "March 22, 2015", "MWF 11:00 - 2:00", 3);
+    Staff staff = new Staff("Sean Campell", "5534 Random St.", "615-888-3548", "scampbell@someschool.edu", "112E Building A", 83000, "June 3, 2005", "Director of Facilities");
+
+
+    System.out.println(person);
+    System.out.println();
+    System.out.println(student);
+    System.out.println();
+    System.out.println(employee);
+    System.out.println();
+    System.out.println(faculty);
+    System.out.println();
+    System.out.println(staff);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+class Employee extends Person {
+  private String office;
+  private int salary;
+  private String dateHired;
+
+  Employee(String name, String address, String phoneNumber, String email, String office, int salary, String dateHired) {
+	super(name,address,phoneNumber,email);
+    this.salary = salary;
+    this.office = office;
+    this.dateHired = dateHired;
+  }
+
+    @Override
+  public String toString() {
+    return String.format("%sOffice: %s%nSalary: $%d%nDate Hired: %s%n", super.toString(), office, salary, dateHired);
+  }
+}
+
+
+
+
+
+
+
+class Faculty extends Employee {
+  public static int LECTURER = 1;
+  public static int ASSISTANT_PROFESSOR = 2;
+  public static int ASSOCIATE_PROFESSOR = 3;
+  public static int PROFESSOR = 4;
+
+  protected String officeHours;
+  protected int rank;
+
+  Faculty(String name, String address, String phoneNumber, String email, String office, int salary, String dateHired, String officeHours, int rank) {
+	super(name,address,phoneNumber,email, office, salary, dateHired);
+    this.officeHours = officeHours;
+    this.rank = rank;
+  }
+
+  public String getRank() {
+      switch(rank) {
+          case LECTURER: return "Lecturer";
+          case ASSISTANT_PROFESSOR: return "Assistant Professor";
+          case ASSOCIATE_PROFESSOR: return "Associate Professor";
+          case PROFESSOR: return "Professor";
+          default: return "Unknown";
+      }
+  }
+
+  @Override
+  public String toString() {
+      return String.format("%Rank: %s%nOffice Hours: %s%n", super.toString(), getRank(), officeHours);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+class Person {
+  protected String name;
+  protected String address;
+  protected String phoneNumber;
+  protected String email;
+
+  Person(String name, String address, String phoneNumber, String email) {
+    this.name = name;
+    this.address = address;
+    this.phoneNumber = phoneNumber;
+    this.email = email;
+  }
+
+  public String getName() {
+    return name;
+  }
+  
+  public String getAddress() {
+    return address;
+  }
+  
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
+  
+  public String getEmail() {
+    return email;
+  }
+  
+
+  @Override
+  public String toString() {
+    return String.format("*********FROM PERSON CLASS********%nName: %s%nAddress: %s%nPhone: %s%nEmail: %s%n", getName(), getAddress(), getPhoneNumber(), getEmail());
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+class Staff extends Employee {
+  private String title;
+
+  Staff(String name, String address, String phoneNumber, String email, String office, int salary, String dateHired, String title) {
+	super(name,address,phoneNumber,email, office, salary, dateHired);
+    this.title = title;
+  }
+
+  @Override
+  public String toString() {
+      return String.format("%sTitle: %s%n", super.toString(), title);
+  }
+}
+
+
+
+
+
+
+
+
+
+class Student extends Person {
+  private final int FRESHMAN = 1;
+  private final int SOPHOMORE = 2;
+  private final int JUNIOR = 3;
+  private final int SENIOR = 4;
+
+  protected int status;
+
+  Student(String name, String address, String phoneNumber, String email, int status) {
+	super(name,address,phoneNumber,email);
+    this.status = status;
+  }
+
+  public String getStatus() {
+    switch(status) {
+        case FRESHMAN: return "Freshman";
+        case SOPHOMORE: return "Sophmore"; 
+        case JUNIOR: return "Junior"; 
+        case SENIOR: return "Senior"; 
+        default: return "Unknown";
+    }   
+  } 
+  
+  @Override
+  public String toString() {
+    return String.format("%sStatus: %s%n", super.toString(), getStatus());
+  }
+}
